@@ -1,0 +1,193 @@
+%!TEX root=Simob.tex
+\documentclass[a4,20pt,twosides]{book}
+\usepackage{booktemplate}
+\begin{document}
+\title{Simplicial Objects in Algebraic Topology}
+\author{J.Peter May}
+\maketitle
+\tableofcontents
+\begin{chapter}{Simplicial Objects and Homotopy}
+\begin{section}{Definitions and examples}
+We introduce the concept of simplicial set and give several examples here. A categorical definition will be given in the next section.
+\begin{chdefn}
+	\label{def1}
+A simplicial set $K$ is a graded set indexed on the non-negative integers together with maps $d_i: K_q \rightarrow K_{q-1}$ and $s_i: K_q \rightarrow K_{q+1}$,$0 \leq i \leq q$, which satisfy the following identities:
+	\begin{enumerate}[(i)]
+		\item $d_{i} d_{j} =d_{j-1}d_{i}$ if $i ,j$,
+		\item $s_i s_j = s_{j+1} s_i$ if $i \leq j$,
+		\item $d_i s_j = s_{j-1} d_i$ if $i<j$,\\
+		$d_j s_j = \text{identity} = d_{j+1} s_j,$\\
+		$d_i s_j = s_j d_{i-1}$ if $ i > j+1$
+	\end{enumerate}
+
+The elements of $K_q$ are called \textbf{$q$-simplices}. The $d_i$ and $s_j$ are called face and degeneracy operations. A simplex $x$ is \textbf{degenerate} if $x=s_i y$ for some simplex $y$ and degeneracy operator $j_i$; otherwise $x$ is non-degenerate.
+\end{chdefn}
+
+\begin{chdefn}
+	A simplicial map $f: K \rightarrow L$ is a map of degree zere of graded sets which commutes with the face and degeneracy operators; that is , $f$ consists of $f_q: K_q \rightarrow L_q$ and
+	\[
+		\begin{aligned}
+		f_q d_i = d_i f_{q+1},\\
+		f_q s_i = s_i f_{q-1}.
+		\end{aligned}
+	\] 
+\end{chdefn}
+
+\begin{chdefn}
+	A simplicial set $k$ is said to satisfy the extension condition if for every collection of $n+1$ $n$-simplices $x_0,x_1,\dots,x_{k-1},\dots,x_{n+1}$ which satisfy the compatibility condition $d_i x_j = d_{j-1}x_{i}, i<j,i \neq k, j\neq k$, there exists an $(n+1)$-simplex $x$ such that $d_i x =x_i$ for $i \neq k$.
+\end{chdefn}
+
+\begin{example}
+	We recall that a simplicial complex $K$ is a set of finite subsets, called simplices, of a given set $\bar{K}$ subject to the condition that every non-empty subset of an element of $K$ is itself an element of $K$. A simplicial set $\tilde{K}$ arises from $K$ in the following manner. An $n$-simplex of $\tilde{K}$ is a sequence $(a_0 , \dots, a_n)$ of elements of $\bar{K}$ such that the set $\{ a_0, \dots, a_n\}$ is n $m$-simplex of $K$ for some $m \leq n$. The face and degeneracy operators of $\tilde{K}$ are defined by:
+	\[ d_i(a_0, \dots, a_n)= (a_0, \dots, a_{i-1}, a_{i+1},\dots, a_n)
+	\]
+	and
+	\[
+	s_j (a_0,\dots, d_n) = (a_0, \dots, a_i, a_i,a_{i+1},\dots,a_n)
+	\]
+	If the elements of $\bar{K}$ are ordered and we require  $\tilde{K}$ to cnsist of those sequences $(a_0, \dots,a_n)$ such that $(a_0,\dots, a_n)$ such that $a_0 \leq a_1 \leq \dots \leq a_n$ and $\{ a_0, \dots, a_n\}$ is an $m$-simplex of $K$ for some $m \leq n$, then there will be exactly one non-degenerate $n$-simplex of $\tilde{K}$ for every $n$-simplex of $K$.
+\end{example}
+
+\begin{example}
+	Let $\Delta_n = \{(t_0, \dots, t_n) | 0 \leq t_i \leq 1, \sum t_i =1\} \subset R^{n+1}$. If $X$ is a topological space, singular $n$-simplex of $X$ is a continuous function $f: \Delta_n \rightarrow X$. The graded set $S(X)$, where $S_n(X)$ is the set of singular $n$-simplices of $X$, is called the total singular complex of $X$, $S(X)$ becomes a simplicial set if we define face and degeneracy operators by:
+	\[
+	d_i f (t_0, \dots, t_{n-1}) = f( t_0, \dots, t_{i-1},0, t_i,\dots,t_{n-1})
+	\]
+	and 
+	\[
+	s_i f (t_0, \dots, t_{n+1}) = f(t_0, \dots, t_{i-1}, t_i + t_{i+1}, t_{i+2},\dots, t_{n+1})
+	\]
+\end{example}
+The following elementary fact will later be used to show that $S(X)$ determines the homotopy groups of $X$.
+\begin{chlemma}
+	$S(X)$ satisfies the extension condition.
+\end{chlemma}
+\begin{proof}
+	Since the union of any $n+1$ faces of $\Delta_{n+1}$ is a retract of $\Delta_{n+1}$, any continuous function defined on such a union can be extended to $\Delta_{n+1}$.
+\end{proof}
+
+\begin{conve}
+	The word "complex"(unmodified) will always mean simplicial set. A complex which satisfies the extension condition will be called a Kan complex.
+\end{conve}
+\end{section}
+
+\begin{section}{Simplicial objects in categories; homology}
+	Recall that a category $\mathcal{C}$ is a class of object together with a family of disjoint sets $\hom(A,B)$, one for each pair of objects, a function $\hom(B,C) \times \hom(A,B) \rightarrow \hom(A,C), \alpha \times \beta \rightarrow \alpha \beta$, and an element $1_A \in  \hom(A,A)$, all subject to the conditions $\alpha(\beta \gamma)$ whenever either is defined and $\alpha \circ \id{A} = \alpha = \id{B} \circ \alpha, \alpha \in \hom(A,B)$. The elements of $\hom(A,B)$ are morphisms with domain $A$ and range $B$. The opposite category $\op{\mathcal{C}}$ of a category $\mathcal{C}$ has an object $\op{A}$ for each object $A$ of $\mathcal{C}$ and a morphism $\op{\alpha} \in \hom(\op{B}, \op{A})$ for each morphism $\alpha \in \hom(A,B)$; $\op{\alpha} \op{\beta}$ is defined and equal to $\op{(\beta \alpha)}$ whenever $\beta \alpha$ is defined.
+	
+	A convariant (resp., contravariant) functor $F: \mathcal{C} \rightarrow \mathcal{D}$ is a correspondence which assigns to each object $A \in \mathcal{C}$ an object $F(A) \in \mathcal{D}$ and to each morphism $\alpha \in \hom(A,B)$ a morphism $F(\alpha) \in \hom(F(A),F(B))$ (resp., $F(\alpha) \in \hom(F(B),F(A))$ subject to the conditions $F(\id{A})= \id{F(A)}, A \in \mathcal{C}$, and $F(\alpha \beta)= F(\alpha)F(\beta)$ (resp., $F(\alpha \beta)=F(\alpha)F(\beta)$) whenever $\alpha \beta$ is defined in $\mathcal{C}$. If $T: \mathcal{C} \rightarrow \op{\mathcal{C}}$ is defined by $T(A) = \op{A}$ and $T(\alpha)= \op{\alpha}$, then $T$ is a contravariant functor; any contravariant functor $F: \mathcal{C} \rightarrow \mathcal{D}$ may be considered as the covariant functor $TF: \mathcal{C} \rightarrow \op{\mathcal{D}}$ or $FT: \op{\mathcal{C}} \rightarrow \mathcal{D}$. If $F$ and $G$ are covariant (resp., contravariant) functors $\mathcal{C} \rightarrow \mathcal{D}$, a natural transformation $\lambda : F \Rightarrow G$ is a function which assigns to each object $A$ of $\mathcal{C}$ a morphism $\lambda(A) \in \hom(F(A),F(B))$ subject to the condition that if $\alpha \in \hom(A,B)$, then $G(\alpha) \lambda(A) = \lambda(B)F(\alpha)$(resp., $G(a) \lambda(\beta) = \lambda(A)F(\alpha)$).
+	
+	Now we define a category $\op{\Delta}$ as follows. The objects $\Delta_{n}$ of $\op{\Delta}$ are sequence of integers, $\Delta_{n} = (0,1,\dots,n), n \geq 0$. The morphisms of $\op{\Delta}$ are the monotonic maps $\mu: \Delta_n \rightarrow \Delta_m $, that is , the maps $\mu$ such that $\mu(i) \leq \mu(j)$ if $i<j$. Define morphisms $\delta_i : \Delta_{n-1} \rightarrow \Delta_{n}$ and $\sigma_i : \Delta_{n+1} \rightarrow \Delta_{n}, 0 \leq i \leq n$, by
+	\begin{align}
+		\delta_i (j) = j \text{ if } j <i; & & \delta_i(j)=j+1 \text{ if } j \geq i,&\\
+		\sigma_i(j) = j \text{ if } j \leq i; & & \sigma_i(j)= j-1 \text{ if } j >i.
+	\end{align}
+	Let $\mu \in \hom(\Delta_n , \Delta_m)$, $\mu$ not an identity. Suppose $\i_1, \dots , i_s$, in reverse order, are the elements of $\Delta_m$ not in $\mu(\Delta_n)$ and $j_1,\dots,j_{t'}$ in order, are the elements of $\Delta_n$ such that $\mu(j) = \mu(j+1)$. Then:
+	\begin{align}
+	\label{eq3}
+		\mu = \delta_{i_1} \dots \delta_{i_s} \sigma_{j_1} \dots \sigma_{j_t},\text{ where, } 0 \leq i_s < \dots < i_1 \leq m, 0 \leq j_1 < \dots < j_t < n,\text{and }n-t+s=m.
+	\end{align}
+	Further, the factorization of $\mu$ in the form \ref{eq3} is unique. Having defined $\op{\Delta}$, we can formulate
+	\begin{chdefn}
+		A simplicial object in a category $\mathcal{C}$ is a contravariant functor $F: \op{\Delta} \rightarrow \mathcal{C}$. Such functors form the objects of a category $\mathcal{C}^{s}$, the elements of $F(\Delta_n)$ are called $n$-simplices, and the maps $d_i= F(\delta_i)$ and $s_j = F(\sigma_i)$ satisfy (i)-(iii) of \ref{def1}. Any simplicial set $K$ determines a contravariant functor $F: \op{\Delta} \rightarrow \mathcal{C}$, where $\mathcal{C}$ is the category of sets, by the rules $F(\Delta_n)= K_n$ and 
+		\[
+		F(\mu) = s_{j_t} \dots s_{j_1} d_{i_s} \dots d_{i_1},
+		\]
+		where $\mu$ is a morphism of $\op{\Delta}$ expressed in the form \ref{eq3}. Thus a simplicial set may be uniquely identified wiht a simplicial object in the category of sets. Analogously, we will speak of simplicial groups, simplicial modules, and so forth, depending on the choice of the category $\mathcal{C}$.
+	\end{chdefn}
+	
+	\begin{rem}
+		Let $\Delta= \op{(\op{\Delta})}$ denote the opposite category of $\op{\Delta}$, $T: \op{\Delta} \rightarrow \Delta$ the contravariant functor defined above. The category $\mathcal{C}^s$ could equally well be defined as that of covariant functors from $\Delta$ to $\mathcal{C}$.
+	\end{rem}
+	Now suppose that $F: \mathcal{C} \rightarrow \mathcal{D}$ is a covariant functor. By composition, $F$ induces a covariant functor $F^s : \mathcal{C}^s \rightarrow \mathcal{D}^s$. In particular, suppose that $\mathcal{C}$ is the category of sets, $\mathcal{D}$ that of Abelian groups, and for $A \in \mathcal{C}$, $F(A)$ is the free Abelian group generated by $A$. Then if $K \in \mathcal{C}^s$, $F^s (K)$ may be given a structure of chain complex with differential $d$ defined on $F^s (K)_n = F^s (K_n)$ by 
+	\[
+	d = \sum_{i=0}^{n}(-1)^i d_i.
+	\]
+	We denote this chain complex by $C(K)$. If $G$ is an Abelian group, we define the homology and cohomology of $K$ with coefficients in $G$ by
+	\[
+	H_{*}(K;G):= H(C(K) \otimes G) \text{ and } H^{*}(K;G):=H(\hom(C(K),G)).
+	\]
+	In case $K= S(X)$, these are, of course, the singular homology and cohomology groups of the space $X$.
+\end{section}
+
+\begin{section}{Homotopy of Kan complexes}
+\begin{chdefn}
+	Let $K$ be a complex. Two $n$-simplices $x$ and $x'$ of $K$ are homotopic, written $x \sim x'$, if $d_i x =d_i x', 0 \leq i \leq n$, and there exists a simplx $y \in K_{n+1}$ such that $d_n y =x, d_{n+1} y =x'$, and $d_i y =s_{n-1}d_i x = s_{n-1} d_i x', 0\leq i <n$. The simplex $y$ is called a homotopy from $x$ to $x'$.
+\end{chdefn}
+
+\begin{chprop}
+	\label{prop2}
+	If $K$ is a Kan complex, then $\sim$ is an equivalence relation on the $n$-simplices of $K, n \geq 0$.
+\end{chprop}
+\begin{proof}
+	The relation $\sim$ is relexive since 
+	\[
+	d_n s_n x = x = d_{n+1} s_n x
+	\]
+	and $d_i s_n x = s_{n-1} d_i x, 0 \leq i < n$. Suppose $x \sim x'$ and $x \sim x''$. We must prove $x' \sim x''$. Let $y'$ satisfy
+	\[
+	d_n y' =x, d_{n+1} y' = x', \text{and } d_i y' =s_{n-1} d_i x', i<n.
+	\]
+	Let $y''$ satisfy
+	\[
+	d_n y'' =x. d_{n+1} y'' = x'', \text{and } d_i y'' = s_{n-1} d_i x', i<n.
+	\]
+	Then the $n+2$ $(n+1)$-simplices
+	\[
+	d_0 s_n s_n x', \dots ,d_{n-1} s_n s_n x', y', y''
+	\]
+	are seen to satisfy the compatibility condition. Therefore there exists an $(n+2)$-simplex $z$ such that $d_i z = d_i s_n s_n x', 0\leq i <n, d_n z = y'$, and $d_{n+1} z = y''$. It follows that 
+	\[
+	d_i d_{n+2} z = s_{n-1} d_i x', 0 \leq i < n,
+	\]
+	$d_n d_{n+2} z = x'$, and $d_{n+1} d_{n+2} z = x''$, hence $x' \sim x''$.
+\end{proof}
+
+\begin{chdefn}
+	Let $L$ be a subcomplex of $K$. Two $n$-simplices $x$ and $x'$, $n>0$, are homotopic relative to $L$, written $x \sim x'\text{ rel } L$, if $d_i x = d_i x', 1 \leq i \leq n$, if $d_0 x \sim d_0 x'$ in $L$ and a simplex $w \in K_{n+1}$ such that $d_0 w = y, d_n w - x, d_{n+1}w =x'$' and $d_i w = s_{n-1} d_i x = s_{n-1} d_i x', 1\leq i < n$. The simplex $w$ is called a relative homotopy from $x$ to $x'$.
+\end{chdefn}
+
+\begin{chprop}
+	If $L$ is a sub Kan complex of the Kan complex $K$, then $\sim \text{ rel } L$ is an equivalence relative homotopy from $x$ to $x'$.
+\end{chprop}
+\begin{proof}
+	The relation $ \sim \text{ rel }L$ is reflexive since if $d_0  x \in L$, then $s_{n-1} d_0 x$ is a homotopy in $L$ from $d_0 x $ to $d_0 x$, and if $w= s_n x$, then $d_i w = s_{n-1} d_i x, 0 \leq i <n$, and 
+	\[
+	d_n w =x= d_{n+1}w.
+	\]
+	Suppose $x \sim x' \text{ rel }L$ and $x \sim x'' \text{ rel }L$. We must prove that $x' \sim x' \text{ rel } L$ and $x \sim x'' \text{ L }$. We must prove that $x' \sim x'' \text{ rel } L$. Let $y'$ and $y''$ be homotopies in $L$ from $d_0 x$ to $d_0 x'$ and from $d_0 x $ to $d_0 x''$, and suppose $w'$ and $w''$ are relative homotopies from $x$ to $x'$ and from $x$ to $x''$ which satisfy $d_0 w' = y'$ and $d_0 w'' =y''$. As in the proof of \ref{prop2}, we may choose $z \in L_{n+1}$ such that 
+	\begin{align*}
+	d_i z = d_i s_{n-1} s_{n-1} d_0 x', 0 \leq i < n-1&\\
+	d_{n-1} z = y' \text{ and } d_n z = y''&
+	\end{align*}
+	Then $y= d_{n+1} z$ is a homotopy in $L$ from $d_0 x'$ to $d_0 x''$. Now it is easy to see that the n+2 $(n+1)$-simplices
+	\[
+	z, d_1 s_n s_n x', \dots , d_{n-1} s_n s_n x', w',w''
+	\]
+	satisfy the compatability condition so that there exists $v \in K_{n+2}$ such that $d_i v = d_i s_n s_n x', 1 \leq i < n, d_0 v =z, d_n v =w'$ and $d_{n+1} v = w''$. Let $w = d_{n+2} v$. Then $d_i w = s_{n-1} d_i x', 1 \leq i <n, d_0 w = y, d_n w = x' $, and $d_{n+1} w = x''$.
+	\end{proof}
+	
+	\begin{nota}
+		Let $K$ be a complex, $\phi \in K_0$. $\phi$ generates a subcomplex of $K$ which has exactly one simplex $s_{n-1}, \dots s_0 \phi$ in each dimension $n$. We will abuse notation by letting $\phi$ denote ambiguously either this subcomplex or any of its simplices. We call $(K, \phi)$ a Kan pair if $K$ is a Kan complex. We call $(K, L, \phi)$ a Kan tripe if $\phi \in L_0$ and $L$ is a sub Kan complex of the Kan complex $K$. Simplicial maps of pairs and triples are defined in the obvious manner. 
+	\end{nota}
+	\begin{chdefn}
+		Let $(K, \phi)$ be a Kan pair. Let $\tilde{K_n}, n \geq 0$, denote the set of all $x \in K_n$ which satisfy $d_i x = \phi, 0 \leq i \leq n$. The we define $\pi_n(K, \phi) = \tilde{K_n} \big/ (\sim)$. $\pi_0 (K, \phi)$ is called the set of path components of $K$. $K$ is connected if $\pi_0 (K, \phi) = \phi$(where we are letting $\phi$ denote its equivalence class). $K$ is $n$-connected if $\pi_n (K, \phi) = \phi, 0 \leq i \leq n$. Let $(K, L, \phi)$ be a Kan triple. Let $\tilde{K}(L)_n, n \geq 1$, denote the set of all $x \in K_n$ which satisfy $d_0 x \in L_{n-1}$ and $d_i x = \phi, 1 \leq i \leq n$. Then we define
+		\[
+		\pi_n (K, L, \phi) = \tilde{K}(L)_n \big/ (\sim \text{ rel }L ).
+		\]
+		Note that $\pi_n (K, \phi, \phi)= \pi_n (K, \phi), n \geq 1$. Finally, we define $d: \pi_n(K,L, \phi) \rightarrow \pi_n(L, \phi), n \geq 1$, by $d[x]=[d_0 x]$, where $[x]$ denotes the homotopy class of $x$.
+	\end{chdefn}
+	\begin{chthm}
+		Let $(K, L, \phi)$ be a Kan triple. Then the sequence
+		\[
+		\dots \rightarrow \pi_{n+1}(K,L,\phi) \xrightarrow{d} \pi_{n}(L,\phi) \xrightarrow{i} \pi_{n}(K,\phi) \xrightarrow{j} \pi_{n}(K,L,\phi) \rightarrow \dots
+		\]
+		of sets with distinguished elements $\phi$ is exact, where the maps $i$ and $j$ are induced by inclusion.
+	\end{chthm}
+	\begin{proof}
+		\begin{enumerate}[(i)] 
+			\item $ i\circ d = \phi$ : Consider $i [d_0 x]= i \circ d[x], x \in K(L)_{n+1}$. The n+2 $(n+1)$-simplices
+		\end{enumerate}
+	\end{proof}
+\end{section}
+\end{chapter}
+\end{document}

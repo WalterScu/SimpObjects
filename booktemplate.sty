@@ -1,0 +1,51 @@
+\ProvidesPackage{booktemplate}
+% AMS packages for specialized mathematical environments and fonts.
+\RequirePackage{
+,amsmath
+,amsthm
+,amsfonts
+,amssymb
+,extarrows
+}
+%Other packages
+\RequirePackage{
+	enumerate
+	,nicefrac % Formats in-line fractions to look nicer (such as 1/3).
+	,pgf,tikz % Allows pictures to be defined and drawn in LaTeX.
+	,geometry % For defining page geometry, such as margins, header, etc.
+	,fancyhdr  %
+	,graphicx % Allows images to be included (using \includegraphics).
+	,pdfpages % Allows entire PDF files to be inserted into the final document.
+	%,refstyle % Combined with refstyle.def, defines specialized label and reference commands.
+	,hyperref % Makes references clickable.
+}
+%Documents format
+\geometry{top=2.5cm,bottom=2.5cm}
+\pagestyle{fancy}
+\lhead{}
+
+%AMS theorem environment
+\theoremstyle{definition}
+\newtheorem{chdefn}{Definition}[chapter]
+\newtheorem{secdefn}{Definition}[section]
+\newtheorem{example}[chdefn]{Example}
+
+\theoremstyle{plain}
+\newtheorem{chthm}{Theorem}[chapter]
+\newtheorem{secthm}{Theorem}[section]
+\newtheorem{chprop}[chthm]{Proposition}
+\newtheorem{secprop}[chthm]{Proposition}
+\newtheorem{chlemma}[chthm]{Lemma}
+\newtheorem{seclemma}[secthm]{Lemma}
+\newtheorem{chcor}[chthm]{Corollary}
+\newtheorem{seccor}[secthm]{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[chapter]
+\newtheorem{conve}[rem]{Conventions}
+\newtheorem{nota}[rem]{Notations}
+
+%New math commands
+\renewcommand{\hom}{\text{Hom}}
+\newcommand{\id}[1]{\text{id}_{#1}}
+\newcommand{\op}[1]{#1^{\text{op}}}
