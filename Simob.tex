@@ -185,8 +185,30 @@ The following elementary fact will later be used to show that $S(X)$ determines 
 	\end{chthm}
 	\begin{proof}
 		\begin{enumerate}[(i)] 
-			\item $ i\circ d = \phi$ : Consider $i [d_0 x]= i \circ d[x], x \in K(L)_{n+1}$. The n+2 $(n+1)$-simplices
+			\item $ i\circ d = \phi$ : Consider $i [d_0 x]= i \circ d[x], x \in K(L)_{n+1}$. The n+2 $(n+1)$-simplices $-, \phi, \dots, \phi, x$ are compatible, hence we may choose $z \in K_{n+2}$ such that $d_i z = \phi, 1 \leq i \leq n+1, d_{n+2} z =x$. Then $d_{i} d_{0} z = d_0 d_{i+1} z = \phi, 0 \leq i \leq n+1$, and $d_{n+1} d _0 z = d_0 x$, so that $d_0 x \sim \phi$ in $K$.
+			\item Image $d$ = Kernel $i$: Let $i[y] = \phi, y \in \tilde{L}_n$. Then $y \sim \phi$ in $K_n$, say $d_i z \phi, 0 \leq i \leq n, d_{n+1}z = y$. The n+2 $(n+1)$-simplces $z, \phi,\dots,\phi$ are compatible, hence there exists $w \in K_{n+2}$ with $d_0 w = z, d_i w = \phi , 1 \leq i \leq n+1$. $d_i d_{n+2} w = \phi, 1\leq i \leq n+1$, and $d_0 d_{n+2} w = y$, so that $d[d_{n+2} w] =[y]$.
+			\item $d_j = \phi: d_{j}[x] = \phi$ since $d_0 x = \phi, x \in \tilde{K}_n$.
+			\item Image j = Kernel d: Let $d[x] = [d_0 x] = \phi, x \in \tilde{K}(L)_n$. There exits $z \in L_n$ such that $d_i z = \phi, 0 \leq i \leq n, d_n z = d_0 x$. The n+1 $n$-simplices $z, \phi, \dots, -,x$ (where $-$ means $k=n$ in the compatibility condition) are compatible, say $d_0 y = z, d_i y = \phi, 1 \leq i \leq n-1, d_{n+1} y =x$. Thus $x \sim d_n y \text{ rel } L$. Since $d_i d_n y = \phi , 0 \leq i \leq n, [x] = j[d_n y]$.
+			\item $j \circ i = \phi$: Consider $j \circ i [y], y \in \tilde{L}_n$. The n+1 $n$-simplices $-, \phi, \dots, \phi, y$ are compatible in $L$, say $z \in L_{n+1}$ satisfies $d_i z = \phi, 1 \leq i \leq n, d_{n+1} z = y$. $d_i d_0 z = \phi, 0 \leq i \leq n$, hence $d_0 z$ is homotopy between $\phi$ and $\phi = d_0 y$, so $z$ is a relative homotopy between $\phi$ and $y$.
+			\item Image $i=$ Kernel $j$: Let $j[x] =\phi, x \in \tilde{K}_n$. Choose $w \in K_{n+1}$ such that $d_i w = \phi , 1 \leq i \leq n, d_{n+1}w =x$, and  $d_0 w = z \in L_n$. The n+1 $n$-simplices $z, \phi, \dots, \phi, -$ are compatible in $L$, say $d_0 v = z$ and $d_i v = \phi, 1 \leq i \leq n$. The n+2 $(n+1)$-simplices $s_{n-1}z, \phi, \dots, \phi, v,w,-$ are compatible in $K$, say $d_0 t = s_{n-1}z, d_i t = \phi, 1 \leq i \leq n-1, d_n t =v , d_{n+1}t = w$. Then $d_{n+2}t$ is a homotopy $d_{n+1} v \sim x$, hence $[x]= i[d_{n+1}v]$.
 		\end{enumerate}
+	\end{proof}
+\end{section}
+
+\begin{section}{The group structures}
+	\begin{chdefn}
+		Let $(K, \phi)$ be a Kan pair. Wirte $x \in \alpha$ if $x$ represent $a$. Suppose $\alpha, \beta \in \pi_n(K,\phi), n \leq 1$, and let $ x \in \alpha, y \in \beta$. Then n+1 $n$-simplices $\phi, \dots , \phi, x , -, y$ are compatible, say $d_i z = \phi, 0 \leq i < n-1, d_{n-1} z = x, d_{n+1} z = y$. We define $\alpha \beta = [d_n z]$.  
+	\end{chdefn}
+	
+	\begin{chlemma}
+		$\alpha \beta$ is well defined.
+	\end{chlemma}
+	\begin{proof}
+		Suppose $z'$ also  satisfies $d_i z' = \phi , 0 \leq i < n-1, d_{n-1} z' = x$ and $d_{n+1} z' =y$. By the extension condition, there exists $w \in  K_{n+2}$ such that $d_i w = \phi, 0 \leq i \leq n-2$,
+		\[
+		d_{n-1} w = s_n d_{n-1} z, d_{n+1} w = z,\text{ and } d_{n+2} w = z'.
+		\]
+		$d_n w$ is then a homotopy from $d_n z$ to $d_n z'$. Suppose $y \sim y'$, say $d_i w = \phi, 0 \leq i < n$, $d_n w = y', d_{n+1} w = y$. Choose $z'$ such that $d_{n-1} z' =x, d_{n+1}z' = y'$, and $d_i z' =\phi, 0 \leq i < n-1$. By the extension condition, there exists $u \in K_{n+2}$ such that $d_j u = \phi$, $0 \leq i < n-1$
 	\end{proof}
 \end{section}
 \end{chapter}
